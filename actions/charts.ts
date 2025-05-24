@@ -41,7 +41,34 @@ export const getAllData = async () => {
     data.reduce((curr, acc) => {
       return curr + acc.milage;
     }, 0) / data.length;
+  
+  
+ const modelViewsCount = data.reduce((curr, acc) => {
+   curr[acc.model] = curr[acc.model] ? curr[acc.model] + acc.views : acc.views;
+   return curr;
+ }, {} as Record<string, number>);
 
+ const modelViews = Array.from(
+   Object.entries(modelViewsCount),
+   ([name, value]) => ({
+     name,
+     value,
+   })
+ );
+
+ const brandViewsCount = data.reduce((curr, acc) => {
+   curr[acc.brand] = curr[acc.brand] ? curr[acc.brand] + acc.views : acc.views;
+   return curr;
+ }, {} as Record<string, number>);
+
+ const brandViews = Array.from(
+   Object.entries(brandViewsCount),
+   ([name, value]) => ({
+     name,
+     value,
+   })
+ );
+  
   client.$disconnect();
-  return { brand, model, median, avgMilage, avgPrice };
+  return { brand, model, median, avgMilage, avgPrice, modelViews, brandViews };
 };

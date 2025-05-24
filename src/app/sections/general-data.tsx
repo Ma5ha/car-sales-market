@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import MarketByBrand from "./market-by-brand";
 import MarketByModel from "./market-by-model";
 import AverageData from "./average-data";

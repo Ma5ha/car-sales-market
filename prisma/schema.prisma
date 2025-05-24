@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Car {
+  id            Int    @id @default(autoincrement())
+  olxId         Int    @unique(sort: Desc)
+  brand         String
+  model         String
+  manufactured  String
+  price         Int
+  displacement  Int
+  milage        Int
+  fuel          String
+  transmission  String
+  torque        Int
+  type          String  
+  color         String
+  priceHistory  PriceHistory[]
+  views         Int
+  createdAt     DateTime @default(now())
+  olixCreatedAt Int 
+  refreshed    RefreshedHistory[] 
+  sold DateTime?
+}
+
+model RefreshedHistory {
+ id Int    @id @default(autoincrement())
+ update DateTime
+ value Int
+ car Car @relation(fields: [carId] , references: [id])
+ carId Int
+
+}
+
+model PriceHistory {
+ id Int    @id @default(autoincrement())
+ update DateTime
+ value Int
+ car Car @relation(fields: [carId] , references: [id])
+ carId Int
+
+}
+
+enum FuelType {
+  Diesel
+  Petrol
+  Hybrid
+  LPG
+  Eletric
+  Other
+}
+
+enum TransmitionType {
+  Manual
+  Automatic
+  SemiAutomatic
+  Other
+}
+
+enum CarType {
+  Sedan
+  Hatchback
+  SUV
+  Coupe
+  Convertible
+  Wagon
+  Minivan
+  Pickup
+  Truck
+  Bus
+  Motorcycle
+  Other
+}
+
+
+
+
+enum Brand {
+  Abarth
+  AlfaRomeo
+  Audi
+  BMW
+  Citroen
+  Fiat
+  Ford
+  Honda
+  Hyundai
+  Jaguar
+  Kia
+  LandRover
+  Mazda
+  Mercedes
+  Mitsubishi
+  Nissan
+  Opel
+  Peugeot
+  Porsche
+  Renault
+  Seat
+  Skoda
+  Smart
+  Subaru
+  Suzuki
+  Toyota
+  Volkswagen
+  Volvo
+  Other
+}
+
+enum Model {
+  Abarth_500
+  AlfaRomeo_Giulietta
+  Audi_A3
+  BMW_1
+  Citroen_C4
+  Fiat_500
+  Fiat_Punto
+  Ford_Focus
+  Honda_Civic
+  Hyundai_i30
+  Jaguar_XF
+  Kia_Ceed
+  LandRover_RangeRover
+  Mazda_3
+  Mercedes_C
+  Mercedes_CLA
+  Mitsubishi_Lancer
+  Nissan_Qashqai
+  Opel_Astra
+  Peugeot_308
+  Porsche_911
+  Renault_Clio
+  Seat_Leon
+  Skoda_Octavia
+  Smart_Fortwo
+  Subaru_Impreza
+  Suzuki_Swift
+  Toyota_Corolla
+  Volkswagen_Golf
+  Volvo_XC90
+  Other
+}

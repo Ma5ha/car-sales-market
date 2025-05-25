@@ -69,6 +69,95 @@ export const getAllData = async () => {
    })
  );
   
+  const soldCars = await client.car.findMany({
+    where: {
+      sold: {
+        not: null,
+      },
+    },
+  });
+
+  const avgSoldMilage =
+    soldCars.reduce((curr, acc) => {
+      return curr + acc.milage;
+    }, 0) / soldCars.length;
+
+  const avgSoldPrice =
+    soldCars.reduce((curr, acc) => {
+      return curr + acc.price;
+    }, 0) / soldCars.length;
+
+  const soldModelCount = soldCars.reduce((curr, acc) => {
+    curr[acc.model] = curr[acc.model] ? curr[acc.model] + 1 : 1;
+    return curr;
+  }, {} as Record<string, number>);
+
+  const soldModel = Array.from(
+    Object.entries(soldModelCount),
+    ([name, value]) => ({
+      name,
+      value,
+    })
+  );
+
+  const soldBrandCount = soldCars.reduce((curr, acc) => {
+    curr[acc.brand] = curr[acc.brand] ? curr[acc.brand] + 1 : 1;
+    return curr;
+  }, {} as Record<string, number>);
+
+  const soldBrand = Array.from(
+    Object.entries(soldBrandCount),
+    ([name, value]) => ({
+      name,
+      value,
+    })
+  );
+
+  const soldModelViewsCount = soldCars.reduce((curr, acc) => {
+    curr[acc.model] = curr[acc.model] ? curr[acc.model] + acc.views : acc.views;
+    return curr;
+  }, {} as Record<string, number>);
+
+  const soldModelViews = Array.from(
+    Object.entries(soldModelViewsCount),
+    ([name, value]) => ({
+      name,
+      value,
+    })
+  );
+
+  const soldBrandViewsCount = soldCars.reduce((curr, acc) => {
+    curr[acc.brand] = curr[acc.brand] ? curr[acc.brand] + acc.views : acc.views;
+    return curr;
+  }, {} as Record<string, number>);
+
+  const soldBrandViews = Array.from(
+    Object.entries(soldBrandViewsCount),
+    ([name, value]) => ({
+      name,
+      value,
+    })
+  );
+
+  const soldMedian = soldCars.sort((a, b) => a.price - b.price)[
+    Math.round(soldCars.length / 2)
+  ].price;
+
   client.$disconnect();
-  return { brand, model, median, avgMilage, avgPrice, modelViews, brandViews };
+  return {
+    brand,
+    model,
+    median,
+    avgMilage,
+    avgPrice,
+    modelViews,
+    brandViews,
+    avgSoldMilage,
+    avgSoldPrice,
+    soldModel,
+    soldBrand,
+    soldModelViews,
+    soldBrandViews,
+    soldMedian,
+  };
 };

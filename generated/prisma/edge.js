@@ -264,6 +264,10 @@ const config = {
         "fromEnvVar": null,
         "value": "darwin-arm64",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -271,7 +275,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -290,8 +294,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Car {\n  id            Int                @id @default(autoincrement())\n  olxId         Int                @unique(sort: Desc)\n  brand         String\n  model         String\n  manufactured  String\n  price         Int\n  displacement  Int\n  milage        Int\n  fuel          String\n  transmission  String\n  torque        Int\n  type          String\n  color         String\n  priceHistory  PriceHistory[]\n  views         Int\n  createdAt     DateTime           @default(now())\n  olixCreatedAt Int\n  refreshed     RefreshedHistory[]\n  sold          DateTime?\n}\n\nmodel RefreshedHistory {\n  id     Int      @id @default(autoincrement())\n  update DateTime\n  value  Int\n  car    Car      @relation(fields: [carId], references: [id])\n  carId  Int\n}\n\nmodel PriceHistory {\n  id     Int      @id @default(autoincrement())\n  update DateTime\n  value  Int\n  car    Car      @relation(fields: [carId], references: [id])\n  carId  Int\n}\n\nenum FuelType {\n  Diesel\n  Petrol\n  Hybrid\n  LPG\n  Eletric\n  Other\n}\n\nenum TransmitionType {\n  Manual\n  Automatic\n  SemiAutomatic\n  Other\n}\n\nenum CarType {\n  Sedan\n  Hatchback\n  SUV\n  Coupe\n  Convertible\n  Wagon\n  Minivan\n  Pickup\n  Truck\n  Bus\n  Motorcycle\n  Other\n}\n\nenum Brand {\n  Abarth\n  AlfaRomeo\n  Audi\n  BMW\n  Citroen\n  Fiat\n  Ford\n  Honda\n  Hyundai\n  Jaguar\n  Kia\n  LandRover\n  Mazda\n  Mercedes\n  Mitsubishi\n  Nissan\n  Opel\n  Peugeot\n  Porsche\n  Renault\n  Seat\n  Skoda\n  Smart\n  Subaru\n  Suzuki\n  Toyota\n  Volkswagen\n  Volvo\n  Other\n}\n\nenum Model {\n  Abarth_500\n  AlfaRomeo_Giulietta\n  Audi_A3\n  BMW_1\n  Citroen_C4\n  Fiat_500\n  Fiat_Punto\n  Ford_Focus\n  Honda_Civic\n  Hyundai_i30\n  Jaguar_XF\n  Kia_Ceed\n  LandRover_RangeRover\n  Mazda_3\n  Mercedes_C\n  Mercedes_CLA\n  Mitsubishi_Lancer\n  Nissan_Qashqai\n  Opel_Astra\n  Peugeot_308\n  Porsche_911\n  Renault_Clio\n  Seat_Leon\n  Skoda_Octavia\n  Smart_Fortwo\n  Subaru_Impreza\n  Suzuki_Swift\n  Toyota_Corolla\n  Volkswagen_Golf\n  Volvo_XC90\n  Other\n}\n",
-  "inlineSchemaHash": "1250793a6e014bd6b67d91f080b28d3ca153f4e9522fb4e86738d9c82dfb565f",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n  output        = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Car {\n  id            Int                @id @default(autoincrement())\n  olxId         Int                @unique(sort: Desc)\n  brand         String\n  model         String\n  manufactured  String\n  price         Int\n  displacement  Int\n  milage        Int\n  fuel          String\n  transmission  String\n  torque        Int\n  type          String\n  color         String\n  priceHistory  PriceHistory[]\n  views         Int\n  createdAt     DateTime           @default(now())\n  olixCreatedAt Int\n  refreshed     RefreshedHistory[]\n  sold          DateTime?\n}\n\nmodel RefreshedHistory {\n  id     Int      @id @default(autoincrement())\n  update DateTime\n  value  Int\n  car    Car      @relation(fields: [carId], references: [id])\n  carId  Int\n}\n\nmodel PriceHistory {\n  id     Int      @id @default(autoincrement())\n  update DateTime\n  value  Int\n  car    Car      @relation(fields: [carId], references: [id])\n  carId  Int\n}\n\nenum FuelType {\n  Diesel\n  Petrol\n  Hybrid\n  LPG\n  Eletric\n  Other\n}\n\nenum TransmitionType {\n  Manual\n  Automatic\n  SemiAutomatic\n  Other\n}\n\nenum CarType {\n  Sedan\n  Hatchback\n  SUV\n  Coupe\n  Convertible\n  Wagon\n  Minivan\n  Pickup\n  Truck\n  Bus\n  Motorcycle\n  Other\n}\n\nenum Brand {\n  Abarth\n  AlfaRomeo\n  Audi\n  BMW\n  Citroen\n  Fiat\n  Ford\n  Honda\n  Hyundai\n  Jaguar\n  Kia\n  LandRover\n  Mazda\n  Mercedes\n  Mitsubishi\n  Nissan\n  Opel\n  Peugeot\n  Porsche\n  Renault\n  Seat\n  Skoda\n  Smart\n  Subaru\n  Suzuki\n  Toyota\n  Volkswagen\n  Volvo\n  Other\n}\n\nenum Model {\n  Abarth_500\n  AlfaRomeo_Giulietta\n  Audi_A3\n  BMW_1\n  Citroen_C4\n  Fiat_500\n  Fiat_Punto\n  Ford_Focus\n  Honda_Civic\n  Hyundai_i30\n  Jaguar_XF\n  Kia_Ceed\n  LandRover_RangeRover\n  Mazda_3\n  Mercedes_C\n  Mercedes_CLA\n  Mitsubishi_Lancer\n  Nissan_Qashqai\n  Opel_Astra\n  Peugeot_308\n  Porsche_911\n  Renault_Clio\n  Seat_Leon\n  Skoda_Octavia\n  Smart_Fortwo\n  Subaru_Impreza\n  Suzuki_Swift\n  Toyota_Corolla\n  Volkswagen_Golf\n  Volvo_XC90\n  Other\n}\n",
+  "inlineSchemaHash": "0918330c407294d38bfcf8303eed3243536b196965727d84797475c30cbfca31",
   "copyEngine": true
 }
 config.dirname = '/'

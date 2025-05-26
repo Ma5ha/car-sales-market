@@ -11,7 +11,7 @@ export default function GeneralData() {
   return (
     <section>
       <h2 className="text-3xl font-bold">General Data</h2>
-      <div className="grid grid-cols-2 gap-4 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
         <MarketByBrand />
         <MarketByModel />
         <MarketViewsByBrand />
@@ -20,7 +20,7 @@ export default function GeneralData() {
       </div>
 
       <h2 className="text-3xl font-bold">General Sales Data</h2>
-      <div className="grid grid-cols-2 gap-4 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-4 mt-10">
         <MarketSalesByBrand />
         <MarketSalesByModel />
         <MarketSalesAverageData />

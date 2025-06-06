@@ -20,22 +20,51 @@ export default function MarketByBrand() {
         started,
       }) => {
         setData([
-          { name: "Avg milage", value: avgSoldMilage },
-          { name: "Avg price", value: avgSoldPrice },
-          { name: "Median price", value: soldMedian },
-          { name: "Sold cars", value: soldCars.length },
+          {
+            name: "Avg milage",
+            value: new Intl.NumberFormat("sr-BA").format(avgSoldMilage),
+          },
+          {
+            name: "Avg price",
+            value: new Intl.NumberFormat("sr-BA", {
+              style: "currency",
+              currency: "BAM",
+            }).format(avgSoldPrice),
+          },
+          {
+            name: "Median price",
+            value: new Intl.NumberFormat("sr-BA", {
+              style: "currency",
+              currency: "BAM",
+            }).format(soldMedian),
+          },
+          {
+            name: "Sold cars",
+            value: new Intl.NumberFormat("sr-BA").format(soldCars.length),
+          },
+
           {
             name: "Total market sales sum",
-            value: totalSalesSum,
+            value: new Intl.NumberFormat("sr-BA", {
+              style: "currency",
+              currency: "BAM",
+            }).format(totalSalesSum),
           },
           {
             name: "Average sales per day",
-            value: averageSalesPerDay,
+
+            value: new Intl.NumberFormat("sr-BA").format(averageSalesPerDay),
           },
 
-          { name: "Days tracking", value: daysDifference },
+          {
+            name: "Days tracking",
+            value: new Intl.NumberFormat("sr-BA").format(daysDifference),
+          },
 
-          { name: "Tracking started at", value: started },
+          {
+            name: "Tracking started at",
+            value: new Intl.DateTimeFormat("sr-BA").format(started),
+          },
         ]);
       }
     );
@@ -45,12 +74,12 @@ export default function MarketByBrand() {
     <div className=" bg-white p-5 rounded ">
       <h3 className="text-lg mb-5">Market sales averages</h3>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {data.map((item) => (
-          <div className="rounded p-11 bg-background" key={item.name}>
+          <div className="rounded p-11 bg-background " key={item.name}>
             <span>{item.name}</span>
             <p className="text-center font-extrabold text-align-center text-3xl mt-auto">
-              {Math.round(item.value as number)}
+              {item.value}
             </p>
           </div>
         ))}

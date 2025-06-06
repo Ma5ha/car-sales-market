@@ -158,14 +158,14 @@ export const getAllData = async () => {
   const timeDifference = today.getTime() - started.getTime();
   const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
-  const averageSalesPerDay = totalSalesSum / daysDifference;
+  const averageSalesPerDay = soldCars.length / daysDifference;
 
   client.$disconnect();
   return {
     brand,
     model,
     median,
-    started: started.toDateString(),
+    started,
     averageSalesPerDay,
     daysDifference,
     totalSalesSum,

@@ -9,12 +9,33 @@ export default function MarketByBrand() {
 
   React.useEffect(() => {
     getAllData().then(
-      ({ avgSoldMilage, avgSoldPrice, soldMedian, soldCars }) => {
+      ({
+        avgSoldMilage,
+        avgSoldPrice,
+        soldMedian,
+        soldCars,
+        totalSalesSum,
+        averageSalesPerDay,
+        daysDifference,
+        started,
+      }) => {
         setData([
           { name: "Avg milage", value: avgSoldMilage },
           { name: "Avg price", value: avgSoldPrice },
           { name: "Median price", value: soldMedian },
           { name: "Sold cars", value: soldCars.length },
+          {
+            name: "Total market sales sum",
+            value: totalSalesSum,
+          },
+          {
+            name: "Average sales per day",
+            value: averageSalesPerDay,
+          },
+
+          { name: "Days tracking", value: daysDifference },
+
+          { name: "Tracking started at", value: started },
         ]);
       }
     );

@@ -142,11 +142,33 @@ export const getAllData = async () => {
     Math.round(soldCars.length / 2)
   ].price;
 
+  const totalSalesSum = soldCars.reduce((curr, acc) => {
+    return curr + acc.price;
+  }, 0);
+
+  const { createdAt } = (await client.car.findFirst({
+    where: {
+      id: 1,
+    },
+  }))!;
+
+  const started = new Date(createdAt);
+  const today = new Date();
+
+  const timeDifference = today.getTime() - started.getTime();
+  const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+  const averageSalesPerDay = totalSalesSum / daysDifference;
+
   client.$disconnect();
   return {
     brand,
     model,
     median,
+    started: started.toDateString(),
+    averageSalesPerDay,
+    daysDifference,
+    totalSalesSum,
     soldCars,
     avgMilage,
     avgPrice,

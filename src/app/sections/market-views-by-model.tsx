@@ -23,7 +23,7 @@ export default function MarketViewsByModel() {
   if (!brand) return null;
   return (
     <div className="h-[300px] bg-white p-2 rounded">
-      <h3 className="text-lg mb-5">Market Views By Brand</h3>
+      <h3 className="text-lg mb-5">Market Views By Model</h3>
       <ResponsiveContainer width="80%" height="80%">
         <BarChart width={150} height={40} data={brand}>
           <Bar dataKey="value" fill="#8884d8" />

@@ -8,13 +8,16 @@ export default function MarketByBrand() {
   const [data, setData] = useState<Record<string, string | number>[]>([]);
 
   React.useEffect(() => {
-    getAllData().then(({ avgSoldMilage, avgSoldPrice, soldMedian }) => {
-      setData([
-        { name: "Avg milage", value: avgSoldMilage },
-        { name: "Avg price", value: avgSoldPrice },
-        { name: "Median price", value: soldMedian },
-      ]);
-    });
+    getAllData().then(
+      ({ avgSoldMilage, avgSoldPrice, soldMedian, soldCars }) => {
+        setData([
+          { name: "Avg milage", value: avgSoldMilage },
+          { name: "Avg price", value: avgSoldPrice },
+          { name: "Median price", value: soldMedian },
+          { name: "Sold cars", value: soldCars.length },
+        ]);
+      }
+    );
   }, []);
 
   return (
